@@ -3,6 +3,7 @@ import math
 class Measure:
 
     is_forward = True
+    is_first = True
 
     angle_left_rad_prev = 0
     angle_right_rad_prev = 0
@@ -10,33 +11,40 @@ class Measure:
     angle_left_rad = 0
     angle_right_rad = 0
     
-    ## 回転(度)
+    ## 回転
     angle = 0
+    angle_deg = 0
 
     ## 進行距離(cm)
     distanceX = 0 
-    distanceY = 0
+    distanceY = 0    
 
     def update(self, whill):
-        angle_left_rad = self.__calc_rad_diff(self.angle_left_rad_prev, whill.left_motor['angle'])
-        angle_right_rad = -1 * self.__calc_rad_diff(self.angle_right_rad_prev, whill.right_motor['angle'])
+        if self.is_first == True:
+            self.is_first = False
+            self.angle_left_rad_prev = whill.left_motor['angle']
+            self.angle_right_rad_prev = whill.right_motor['angle']
+        angle_left_rad = -1 * self.__calc_rad_diff(self.angle_left_rad_prev, whill.left_motor['angle'])
+        angle_right_rad = self.__calc_rad_diff(self.angle_right_rad_prev, whill.right_motor['angle'])
 
         #print(angle_left_rad, angle_right_rad)
 
         # if whill.time_diff_ms == 0.0:
         #     return
         dt = whill.time_diff_ms 
+        if dt == 0:
+            return
         #dt = 50.0
 
         left_angle_speed = angle_left_rad / (dt / 1000.0)
         right_angle_speed = angle_right_rad / (dt / 1000.0)
 
-        left_speed = left_angle_speed * 0.270  
-        right_speed = right_angle_speed * 0.270
+        left_speed = left_angle_speed * 0.135
+        right_speed = right_angle_speed * 0.135
         #print(left_speed, right_speed)
 
         speed = (left_speed + right_speed) / 2.0
-        angle_speed = (left_speed - right_speed) / (2.0 * 0.1325)
+        angle_speed = (left_speed - right_speed) / (2.0 * 0.248)
 
         #print(angle_speed)
 
@@ -47,14 +55,16 @@ class Measure:
 
         # 右回転がマイナス
         self.angle += angle_speed * (dt / 1000.0)
+        self.angle_deg = (self.angle / math.pi) * 180.0
 
-        print(self.distanceX, self.distanceY, self.angle)
+        print(self.distanceX, self.distanceY, self.angle, self.angle_deg)
 
         self.angle_left_rad_prev = whill.left_motor['angle']
         self.angle_right_rad_prev = whill.right_motor['angle']
 
     def reset(self):
-        self.distancemm = 0
+        self.distanceX = 0
+        self.distanceY = 0
         self.angle = 0
 
     def __calc_rad_diff(self, past, current):

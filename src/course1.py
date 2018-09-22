@@ -5,7 +5,9 @@
 
 import time
 from whill import ComWHILL
-from command_go import CommandGo
+from command_forward import CommandForward
+from command_turn_left import CommandTurnLeft
+from command_turn_right import CommandTurnRight
 from measure import Measure
 
 whill = ComWHILL(port='/dev/tty.usbserial-FT1HNPEN')
@@ -13,7 +15,9 @@ request_speed_mode = 0
 measure = Measure()
 
 commands = [
-    CommandGo(whill, measure, 1.0),
+    #CommandForward(whill, measure, 1.0),
+    CommandTurnRight(whill, measure, 90.0),
+    CommandTurnLeft(whill, measure, 90.0),
 ]
 
 def callback1():
