@@ -13,7 +13,7 @@ request_speed_mode = 0
 measure = Measure()
 
 commands = [
-    CommandGo(whill, measure, 100),
+    CommandGo(whill, measure, 1000),
 ]
 
 def callback1():

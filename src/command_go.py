@@ -6,9 +6,10 @@ class CommandGo:
         self.distance = 0
 
     def run(self):
-        if self.distance < self.measure.distancemm:
+        if  self.measure.distancemm <= self.distance:
             self.whill.send_joystick(int(30), int(0))
             return True
         else: 
+            print("done")
             self.whill.send_joystick(int(0), int(0))
             return False

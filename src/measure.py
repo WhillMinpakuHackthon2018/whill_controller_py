@@ -23,9 +23,9 @@ class Measure:
         self.angle_left_rad = self.__calc_diff_angle(left_motor_angle_input, self.angle_left_rad_prev)
         self.angle_right_rad = self.__calc_diff_angle(right_motor_angle_input, self.angle_right_rad_prev)
 
-        self.distancemm = self.angle_left_rad * 270 * 3.14
+        self.distancemm = self.angle_left_rad * 270 * math.pi
         #print(whill.left_motor['angle'])
-        print(self.distancemm)
+        #print(self.distancemm)
 
         self.angle_left_rad_prev = left_motor_angle_input
         self.angle_right_rad_prev = right_motor_angle_input
