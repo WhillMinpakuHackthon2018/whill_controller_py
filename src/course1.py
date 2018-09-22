@@ -13,7 +13,7 @@ request_speed_mode = 0
 measure = Measure()
 
 commands = [
-    CommandGo(whill, measure, 1000),
+    CommandGo(whill, measure, 1.0),
 ]
 
 def callback1():
@@ -23,13 +23,13 @@ def callback1():
 def main():
     whill.register_callback('data_set_1', callback1)
     print("register_callback")
-    whill.start_data_stream(1000, 1, request_speed_mode)
+    whill.start_data_stream(20, 1, request_speed_mode)
     print("start_data_stream")
 
     current = 0
 
     while True:
-        time.sleep(0.05)
+        time.sleep(0.02)
         whill.refresh()
 
         if commands[current].run() == False:

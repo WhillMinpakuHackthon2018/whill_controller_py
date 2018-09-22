@@ -3,11 +3,11 @@ class CommandGo:
         print("init commnd go")
         self.whill = whill
         self.measure = measure
-        self.distance = 0
+        self.distance = distance
 
     def run(self):
-        if  self.measure.distancemm <= self.distance:
-            self.whill.send_joystick(int(30), int(0))
+        if self.measure.distanceX < self.distance:
+            self.whill.send_joystick(int(0), int(30))
             return True
         else: 
             print("done")
