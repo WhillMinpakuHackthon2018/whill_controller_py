@@ -2,6 +2,8 @@ import math
 
 class Measure:
 
+    interval_msec = 20.0
+
     is_forward = True
     is_first = True
 
@@ -57,7 +59,7 @@ class Measure:
         self.angle += angle_speed * (dt / 1000.0)
         self.angle_deg = (self.angle / math.pi) * 180.0
 
-        print(self.distanceX, self.distanceY, self.angle, self.angle_deg)
+        #print(self.distanceX, self.distanceY, self.angle, self.angle_deg)
 
         self.angle_left_rad_prev = whill.left_motor['angle']
         self.angle_right_rad_prev = whill.right_motor['angle']
